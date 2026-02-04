@@ -1,0 +1,24 @@
+name: Maven Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+          maven-version: '3.9.6'
+
+      - name: Build with Maven
+        run: mvn -version && mvn clean install
